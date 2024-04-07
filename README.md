@@ -1,1 +1,9 @@
-# Alt
+# Roblox Profile Alt Checker
+
+## Description
+The Roblox Profile Alt Checker is a browser extension that helps users determine if a Roblox account is a main account or an alternative (alt) account. It does this by analyzing the user's profile and providing an alt percentage score directly on the Roblox profile page.
+
+## Features
+- Retrieves and displays an alt percentage score on Roblox profile pages.
+- Easy to use with automatic fetching of user ID from the profile URL.
+- Integrates seamlessly into the Roblox user interface, enhancing the user experience.
