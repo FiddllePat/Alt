@@ -38,27 +38,45 @@ function insertBadgeActivityImage(userId) {
   const imageUrl = `https://altcheck-demo.fiddllepat.com/graph_badge_activity/${userId}`;
   const footerDiv = document.querySelector('.border-top.profile-about-footer');
   if (footerDiv) {
+    const textLabel = document.createElement('span');
+    textLabel.textContent = 'Badge Activity';
+    textLabel.style.display = 'block';
+    textLabel.style.fontWeight = 'bold';
+    textLabel.style.marginBottom = '5px';
 
-    const label = document.createElement('div');
-    label.textContent = 'Badge Activity';
-    label.style.fontWeight = 'bold';
-    label.style.marginBottom = '5px';
+    const loadingText = document.createElement('span');
+    loadingText.textContent = 'Loading';
+    loadingText.style.display = 'block';
+    footerDiv.appendChild(loadingText);
+
+    let dotCount = 0;
+    const loadingInterval = setInterval(() => {
+      loadingText.textContent = `Loading${'.'.repeat(dotCount)}`;
+      dotCount = (dotCount + 1) % 4;
+    }, 500);
 
     const img = document.createElement('img');
     img.src = imageUrl;
     img.alt = 'Badge Activity';
     img.style.maxWidth = '100%';
     img.style.height = 'auto';
-    img.style.borderRadius = '7px';
+    img.style.display = 'none';
+
+    img.onload = () => {
+      clearInterval(loadingInterval); 
+      loadingText.remove(); 
+      img.style.display = 'block'; 
+    };
 
     if (footerDiv.firstChild) {
-      footerDiv.insertBefore(label, footerDiv.firstChild);
-      footerDiv.insertBefore(img, label.nextSibling);
+      footerDiv.insertBefore(textLabel, footerDiv.firstChild);
+      footerDiv.insertBefore(img, textLabel.nextSibling);
     } else {
-      footerDiv.appendChild(label);
+      footerDiv.appendChild(textLabel);
       footerDiv.appendChild(img);
     }
-    console.log("Badge activity image and label inserted!");
+
+    console.log("Badge activity image loading started!");
   }
 }
 
