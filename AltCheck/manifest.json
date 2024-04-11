@@ -1,11 +1,8 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
-
   "manifest_version": 3,
   "name": "Roblox Profile Alt Checker",
   "version": "0.1",
   "description": "A Chrome extension to display alt percentage on Roblox profiles.",
-  "permissions": ["activeTab"],
   "host_permissions": [
     "https://www.roblox.com/*",
     "https://roblox.com/*",
