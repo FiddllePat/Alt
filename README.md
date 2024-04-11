@@ -7,3 +7,5 @@ The Roblox Profile Alt Checker is a browser extension that helps users determine
 - Retrieves and displays an alt percentage score on Roblox profile pages.
 - Easy to use with automatic fetching of user ID from the profile URL.
 - Integrates seamlessly into the Roblox user interface, enhancing the user experience.
+- Shows user activity based on badges
+- Shows last time the user was online
