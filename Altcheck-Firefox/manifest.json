@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Roblox Profile Alt Checker",
+  "version": "0.1",
+  "description": "A Firefox extension to display alt percentage on Roblox profiles.",
+  "permissions": [
+    "https://www.roblox.com/*",
+    "https://roblox.com/*",
+    "https://altcheck-demo.fiddllepat.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.roblox.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_popup": "page.html",
+    "default_icon": "icon16.png"
+  },
+  "icons": {
+    "16": "icon16.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "altchecker@robloxprofiles.com",
+      "strict_min_version": "48.0"
+    }
+  }
+}
