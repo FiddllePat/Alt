@@ -10,6 +10,9 @@ The Roblox Profile Alt Checker is a browser extension that helps users determine
 - Shows user activity based on badges
 - Shows last time the user was online
 
+## Model Info
+- Current alt detection model has 15 inputs, roughly 80% less false positives than the last model based on the testing set.
+
 ### Supported Browsers
 - Google Chrome (Manifest v3)
 - Firefox (Manifest v2)
