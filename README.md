@@ -13,6 +13,9 @@ The Roblox Profile Alt Checker is a browser extension that helps users determine
 ## Model Info
 - Current alt detection model has 15 inputs, roughly 80% less false positives than the last model based on the testing set.
 
+## Api Docs
+- WIP, I do intend to make this api accessible for game developers to filter out alts
+
 ### Supported Browsers
 - Google Chrome (Manifest v3)
 - Firefox (Manifest v2)
