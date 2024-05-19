@@ -8,16 +8,13 @@ if (window.location.host === "www.roblox.com") {
 
         if (userId) {
             console.log(`User ID found: ${userId}`);
-            const apiUrl = `https://altcheck-demo.fiddllepat.com/predict_by_userid?user_id=${encodeURIComponent(userId)}`;
+            const apiUrl = `https://alt-new-model.fiddllepat.com/predict?user_id=${encodeURIComponent(userId)}`;
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.percent_alt !== undefined) {
-                        addNewListItem(data.percent_alt);
-                        insertBadgeActivityImage(userId);
-                    } else {
-                        console.error('Error fetching data:', data);
-                    }
+                    const { alt, longterm_alt, main } = data;
+                    addNewListItem(alt);
+                    insertBadgeActivityImage(userId);
                 })
                 .catch(error => console.error('Error fetching data:', error));
             fetchLastOnline(userId);
@@ -26,7 +23,7 @@ if (window.location.host === "www.roblox.com") {
         }
     }
 
-    function addNewListItem(percentAlt) {
+    function addNewListItem(alt) {
         const detailsInfo = document.querySelector('ul.details-info');
         if (detailsInfo) {
             const newListItem = document.createElement('li');
@@ -36,8 +33,8 @@ if (window.location.host === "www.roblox.com") {
 
             const percentSpan = document.createElement('span');
             percentSpan.className = "font-header-2";
-            percentSpan.title = `${percentAlt}%`;
-            percentSpan.textContent = `${percentAlt}%`;
+            percentSpan.title = `${alt}%`;
+            percentSpan.textContent = `${alt}%`;
 
             newListItem.appendChild(textLabel);
             newListItem.appendChild(percentSpan);
@@ -47,7 +44,7 @@ if (window.location.host === "www.roblox.com") {
     }
 
     function insertBadgeActivityImage(userId) {
-        const imageUrl = `https://altcheck-demo.fiddllepat.com/graph_badge_activity/${userId}`;
+        const imageUrl = `https://alt-new-model.fiddllepat.com/graph_badge_activity/${userId}`;
         const footerDiv = document.querySelector('.border-top.profile-about-footer');
         if (footerDiv) {
             const textLabel = document.createElement('span');
