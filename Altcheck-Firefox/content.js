@@ -8,7 +8,7 @@ if (window.location.host === "www.roblox.com") {
 
         if (userId) {
             console.log(`User ID found: ${userId}`);
-            const apiUrl = `https://alt-new-model.fiddllepat.com/predict?user_id=${encodeURIComponent(userId)}`;
+            const apiUrl = `https://alt-ai.fiddllep.at/predict?user_id=${encodeURIComponent(userId)}`;
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
@@ -44,7 +44,7 @@ if (window.location.host === "www.roblox.com") {
     }
 
     function insertBadgeActivityImage(userId) {
-        const imageUrl = `https://alt-new-model.fiddllepat.com/graph_badge_activity/${userId}`;
+        const imageUrl = `https://alt-ai.fiddllep.at/graph_badge_activity/${userId}`;
         const footerDiv = document.querySelector('.border-top.profile-about-footer');
         if (footerDiv) {
             const textLabel = document.createElement('span');
