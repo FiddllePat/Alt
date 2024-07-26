@@ -8,30 +8,41 @@ if (window.location.host === "www.roblox.com") {
     
         if (userId) {
             console.log(`User ID found: ${userId}`);
-            const apiUrl = `https://altmodel.fiddllep.at/predict?user_id=${encodeURIComponent(userId)}`;
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        const categories = {
-                            Alt: data.alt,
-                            "Long Term Alt": data.longterm_alt,
-                            Main: data.main
-                        };
-                        const highestCategory = Object.keys(categories).reduce((a, b) => categories[a] > categories[b] ? a : b);
-                        const highestPercentage = categories[highestCategory];
-                        addNewListItem(highestCategory, highestPercentage);
-                        //insertBadgeActivityImage(userId);
-                    } else {
-                        console.error('Error fetching data:', data);
-                    }
-                })
-                .catch(error => console.error('Error fetching data:', error));
+            const cachedCategory = localStorage.getItem(`${userId}1`);
+            const cachedPercentage = localStorage.getItem(`${userId}2`);
+    
+            if (cachedCategory && cachedPercentage) {
+                console.log("Loading data from cache.");
+                addNewListItem(cachedCategory, cachedPercentage);
+            } else {
+                console.log("Fetching data from API.");
+                const apiUrl = `https://altmodel.fiddllep.at/predict?user_id=${encodeURIComponent(userId)}`;
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            const categories = {
+                                Alt: data.alt,
+                                "Long Term Alt": data.longterm_alt,
+                                Main: data.main
+                            };
+                            const highestCategory = Object.keys(categories).reduce((a, b) => categories[a] > categories[b] ? a : b);
+                            const highestPercentage = categories[highestCategory];
+                            addNewListItem(highestCategory, highestPercentage);
+                            localStorage.setItem(`${userId}1`, highestCategory);
+                            localStorage.setItem(`${userId}2`, highestPercentage);
+                            //insertBadgeActivityImage(userId);
+                        } else {
+                            console.error('Error fetching data:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
             fetchLastOnline(userId);
         } else {
             console.log("User ID not found.");
         }
-    }
+    }    
     
     function addNewListItem(highestCategory, highestPercentage) {
         var detailsInfo = document.querySelector('ul.details-info');
@@ -133,12 +144,62 @@ if (window.location.host === "www.roblox.com") {
         fetchAndDisplayAlt();
     }
 }
-
+/*
 if (window.location.href === "https://www.roblox.com/home") {
+    // Select the header by its class
+    const header = document.querySelector('.rbx-header');
+
+    // Check if the header exists
+    if (header) {
+        // Remove any borders set on the header
+        header.style.border = 'none';
+        console.log("Border removed from the header");
+    }
+
+    // Existing code for other modifications
+    const leftCol = document.querySelector('.rbx-left-col');
+    let leftColBackgroundColor = '#000';
+    if (leftCol && window.getComputedStyle) {
+        leftColBackgroundColor = window.getComputedStyle(leftCol).backgroundColor;
+        // Remove any shadows set on the left column
+        leftCol.style.boxShadow = 'none';
+        console.log("Shadow removed from the left column");
+    }
+
     const homeContainer = document.querySelector('#HomeContainer.row.home-container.expand-max-width');
     if (homeContainer) {
         homeContainer.classList.remove('expand-max-width');
         homeContainer.style.maxWidth = '60%';
-        console.log("Updated HomeContainer max-width to 60%");
+        homeContainer.style.backgroundColor = leftColBackgroundColor;
+        homeContainer.style.borderTopLeftRadius = '20px';
+        homeContainer.style.borderTopRightRadius = '20px';
+        homeContainer.style.paddingTop = '20px';
+        homeContainer.style.paddingLeft = '20px';
+        homeContainer.style.paddingRight = '20px';
+        console.log("Updated HomeContainer styles with rbx-left-col background color");
+    }
+
+    const headerContainer = document.querySelector('.col-xs-12.container-header');
+    if (headerContainer) {
+        headerContainer.remove();
+        console.log("Removed header container and its contents");
+    }
+
+    // New code to wrap and style the content div
+    const contentDiv = document.querySelector('.content');
+    if (contentDiv) {
+        // Create a wrapper div
+        const wrapperDiv = document.createElement('div');
+        wrapperDiv.style.backgroundColor = leftColBackgroundColor;
+
+        // Insert wrapper before content in the DOM
+        contentDiv.parentNode.insertBefore(wrapperDiv, contentDiv);
+        // Move the content div inside the wrapper
+        wrapperDiv.appendChild(contentDiv);
+
+        // Apply styles to the content div
+        contentDiv.style.borderTopLeftRadius = '20px';
+        console.log("Content div wrapped and styled");
     }
 }
+*/
