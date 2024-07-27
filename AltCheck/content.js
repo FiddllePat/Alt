@@ -10,7 +10,7 @@ if (window.location.host === "www.roblox.com") {
             console.log(`User ID found: ${userId}`);
             const cachedCategory = localStorage.getItem(`${userId}1`);
             const cachedPercentage = localStorage.getItem(`${userId}2`);
-    
+            fetchAndDisplayUserTraits(userId);
             if (cachedCategory && cachedPercentage) {
                 console.log("Loading data from cache.");
                 addNewListItem(cachedCategory, cachedPercentage);
@@ -31,7 +31,6 @@ if (window.location.host === "www.roblox.com") {
                             addNewListItem(highestCategory, highestPercentage);
                             localStorage.setItem(`${userId}1`, highestCategory);
                             localStorage.setItem(`${userId}2`, highestPercentage);
-                            //insertBadgeActivityImage(userId);
                         } else {
                             console.error('Error fetching data:', data);
                         }
@@ -42,8 +41,36 @@ if (window.location.host === "www.roblox.com") {
         } else {
             console.log("User ID not found.");
         }
-    }    
-    
+    }
+
+    function fetchAndDisplayUserTraits(userId) {
+        const userTraitsApi = `https://typemodel.fiddllep.at/predict2/${userId}`;
+        fetch(userTraitsApi)
+            .then(response => response.json())
+            .then(data => {
+                const predictions = data.predictions;
+                for (let category in predictions) {
+                    const percentage = predictions[category] * 100;
+                    if (percentage > 40) {
+                        const displayName = getDisplayName(category);
+                        addNewListItem(displayName, Math.round(percentage));
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching user traits:', error));
+    }
+
+    function getDisplayName(category) {
+        const names = {
+            anime: "Anime",
+            edater: "Internet Dater",
+            fag: "Prideful",
+            furry: "Furry",
+            normal: "Normal"
+        };
+        return names[category] || category;
+    }
+
     function addNewListItem(highestCategory, highestPercentage) {
         var detailsInfo = document.querySelector('ul.details-info');
         if (detailsInfo) {
@@ -52,7 +79,7 @@ if (window.location.host === "www.roblox.com") {
             detailsInfo.appendChild(newListItem);
             console.log("Inserted category label and percentage");
         }
-    }      
+    }
 
     function insertBadgeActivityImage(userId) {
         const imageUrl = `https://altcheck-demo.fiddllepat.com/graph_badge_activity/${userId}`;
@@ -144,6 +171,7 @@ if (window.location.host === "www.roblox.com") {
         fetchAndDisplayAlt();
     }
 }
+
 /*
 if (window.location.href === "https://www.roblox.com/home") {
     // Select the header by its class
