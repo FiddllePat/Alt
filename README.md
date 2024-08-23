@@ -23,3 +23,6 @@ The Roblox Profile Alt Checker is a browser extension that helps users determine
 - Firefox (Manifest v2)
 
 [Repo](https://github.com/FiddllePat/Alt)
+
+# Join the discord to suggest new ideas!
+[discord](https://discord.gg/cEUkp6FCUZ)
