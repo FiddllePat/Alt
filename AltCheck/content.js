@@ -172,6 +172,16 @@ if (window.location.host === "www.roblox.com") {
     }
 }
 
+function sillyTime() {
+    const upd5NewTabValue = localStorage.getItem('upd5_newtab');
+    if (!upd5NewTabValue || upd5NewTabValue === 'false') {
+        localStorage.setItem('upd5_newtab', 'true');
+        window.open('https://discord.gg/cEUkp6FCUZ', '_blank');
+    } else {
+        console.log("No redirection, upd5_newtab is set to true.");
+    }
+}
+
 /*
 if (window.location.href === "https://www.roblox.com/home") {
     // Select the header by its class
